@@ -1,0 +1,27 @@
+name: "Automatic PR Labeler"
+on:
+  pull_request:
+    types: [opened]
+permissions:
+  contents: read
+  pull-requests: write
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Detect changes
+        id: detect
+        run: |
+          echo "::group::Detecting file changes"
+          echo "Head_Ref: ${{ github.head_ref }}"
+          echo "Base_Ref: ${{ github.base_ref }}"
+          echo "changes=$(git diff --name-only ${{ github.head_ref }} ${{ github.base_ref }})" >> "$GITHUB_OUTPUT"
+          echo "Changes: $changes"
+          echo "::endgroup::"
+      - name: Read changes
+        id: read
+        run: |
+          cat ${{ steps.detect.outputs.changes }}
