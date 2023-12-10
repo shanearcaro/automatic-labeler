@@ -8,9 +8,10 @@ echo "Languages: ${languages}"
 
 index=-1
 for lang in ${languages}; do
-  echo "$lang"
+  echo "Extension: $lang"
   if [ $index -gt -1 ]; then
-    echo "${languages[$index]}"
+    echo "Language: ${languages[$index]}"
   fi
+  echo "Index: $index"
   index=$((index + 1))
 done
