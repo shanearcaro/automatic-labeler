@@ -25,4 +25,5 @@ jobs:
       - name: Read changes
         id: read
         run: |
-          echo ${{ steps.detect.outputs.changes }}
+          changes=${{ steps.detect.outputs.changes }}
+          echo "All changes: ${changes[@]}"
