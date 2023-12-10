@@ -17,6 +17,26 @@ add_labels() {
   fi
 }
 
+# Search for a label
+search_label() {
+  search=$(gh label list -S "$1")
+  echo "$search"
+}
+
+create_label() {
+  # Remove trailing whitespace
+  label=$(echo "$1" | xargs)
+  gh label create $label -d "Label automatically created by shanearcaro/organize-pr"
+}
+
+is_label() {
+  if echo "$1" | grep -q ':$'; then
+    return ${item%:*}
+  else
+    return $1
+  fi
+}
+
 extension=""
 for item in $languages; do
   # Check if item has a trailing colon
@@ -25,6 +45,14 @@ for item in $languages; do
     extension=${item%:*}
   else
     echo "Label: $item Extension: $extension"
-    add_labels "$item"
+    echo "Searching for label: $item"
+    if [ -z "$(search_label "$item")" ]; then
+      echo "Label not found, creating label"
+      create_label "$item"
+    else
+      echo "Label found, adding label"
+      add_labels "$item"
+    fi
+   
   fi
 done
