@@ -41,7 +41,11 @@ is_label() {
   fi
 }
 
+# Need to checkout branch before using git commands
 gh pr checkout $head_ref
+
+printenv
+
 extension=""
 for item in $languages; do
   # Check if item has a trailing colon
@@ -58,6 +62,5 @@ for item in $languages; do
       echo "Label found, adding label"
       add_labels "$item"
     fi
-   
   fi
 done
