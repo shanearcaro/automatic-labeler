@@ -1,12 +1,13 @@
 #!/bin/sh
 
-# Mak as safe directory
+# Mark as safe directory
 git config --global --add safe.directory $PWD
 
 # Read in path and languages to traverse
 paths=$1
 languages=$2
 event_type=$3
+head_ref=$4
 
 echo "Paths: ${paths} \n"
 echo "Languages: ${languages} \n"
@@ -40,6 +41,7 @@ is_label() {
   fi
 }
 
+gh pr checkout $head_ref
 extension=""
 for item in $languages; do
   # Check if item has a trailing colon

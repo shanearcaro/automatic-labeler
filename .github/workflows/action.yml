@@ -30,3 +30,4 @@ jobs:
             json: "config"
             md: "documentation"
           event: ${{ github.event_name }}
+          head: ${{ github.event.pull_request.head.ref }}
