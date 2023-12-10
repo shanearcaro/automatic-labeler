@@ -18,7 +18,7 @@ jobs:
           echo "::group::Detecting file changes"
           echo "Head_Ref: ${{ github.event.pull_request.head.sha }}"
           echo "Base_Ref: ${{ github.event.pull_request.base.sha }}"
-          echo "changes=$(git diff --name-only ${{ github.event.pull_request.head.sha }} ${{ github.event.pull_request.base.sha }})" >> "$GITHUB_OUTPUT"
+          echo "mapfile -t changes < <(git diff --name-only ${{ github.event.pull_request.head.sha }} ${{ github.event.pull_request.base.sha }})" >> "$GITHUB_OUTPUT"
           echo "Changes: $changes"
           echo "::endgroup::"
       - name: Read changes
