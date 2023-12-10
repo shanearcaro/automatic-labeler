@@ -9,7 +9,7 @@ echo "Languages: ${languages}"
 index=-1
 for lang in ${languages}; do
   echo "$lang"
-  if [ $index -g -1 ]; then
+  if (( index > -1)); then
     echo "${lang[$index]}"
   fi
   ((index++))
