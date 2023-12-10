@@ -1,1 +1,1 @@
-# Github Action
+# Automatic Pull request Labeler
