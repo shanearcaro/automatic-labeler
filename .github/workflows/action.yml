@@ -16,9 +16,9 @@ jobs:
         id: detect
         run: |
           echo "::group::Detecting file changes"
-          echo "Head_Ref: ${{ github.head_ref }}"
-          echo "Base_Ref: ${{ github.base_ref }}"
-          echo "changes=$(git diff --name-only ${{ github.head_ref }} ${{ github.base_ref }})" >> "$GITHUB_OUTPUT"
+          echo "Head_Ref: ${{ github.event.pull_request.head.sha }}"
+          echo "Base_Ref: ${{ github.event.pull_request.base.sha }}"
+          echo "changes=$(git diff --name-only ${{ github.event.pull_request.head.sha }} ${{ github.event.pull_request.base.sha }})" >> "$GITHUB_OUTPUT"
           echo "Changes: $changes"
           echo "::endgroup::"
       - name: Read changes
