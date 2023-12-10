@@ -9,12 +9,6 @@ inputs:
     description: 'Apply labels to events with mentions of these languages'
     required: false
     default: ''
-  event:
-    description: 'Event to apply labels to'
-    required: true
-  head:
-    description: 'PR to checkout'
-    required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -22,4 +16,3 @@ runs:
     - ${{ inputs.paths }}
     - ${{ inputs.languages }}
     - ${{ inputs.event }}
-    - ${{ inputs.head }}
