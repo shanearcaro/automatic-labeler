@@ -9,10 +9,14 @@ inputs:
     description: 'Apply labels to events with mentions of these languages'
     required: false
     default: ''
+  event:
+    description: 'Event to apply labels to'
+    required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
     - ${{ inputs.paths }}
     - ${{ inputs.languages }}
-    - ${{ github.event_name}}
+    - ${{ inputs.event }}
+    
