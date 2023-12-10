@@ -3,5 +3,5 @@
 paths=$1
 languages=$2
 
-echo "Paths: $(paths[@])"
-echo "Languages: $(languages[@])"
+echo "Paths: ${paths}"
+echo "Languages: ${languages}"
