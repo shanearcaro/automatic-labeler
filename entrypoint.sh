@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Mak as safe directory
+git config --global --add safe.directory $PWD
+
 # Read in path and languages to traverse
 paths=$1
 languages=$2
