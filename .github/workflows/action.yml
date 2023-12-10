@@ -25,4 +25,4 @@ jobs:
       - name: Read changes
         id: read
         run: |
-          cat ${{ steps.detect.outputs.changes }}
+          echo ${{ steps.detect.outputs.changes }}
