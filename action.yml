@@ -1,4 +1,4 @@
-name: '[Automatic] Adding labels to ${{ github.event_name }}/${{ github.head_ref }}'
+name: "Automatic Labeler"
 description: 'Add automatic labels'
 inputs:
   paths:

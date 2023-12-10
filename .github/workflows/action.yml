@@ -27,4 +27,12 @@ jobs:
             yaml: "config"
             json: "config"
             md: "documentation"
+
+      # - name: Detect changes
+      #   id: detect
+      #   run: |
+      #     echo "Head_Ref: ${{ github.event.pull_request.head.sha }}"
+      #     echo "Base_Ref: ${{ github.event.pull_request.base.sha }}"
+      #     changes=($(git diff --name-only ${{ github.event.pull_request.head.sha }} ${{ github.event.pull_request.base.sha }}))
+      #     echo "Changes: ${changes[@]}"
         
