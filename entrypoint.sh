@@ -14,11 +14,7 @@ git_event=$GITHUB_EVENT_NAME
 
 # Add a label to a pull request or issue
 add_label() {
-  if [ "$git_event" = "pull_request" ]; then
-    gh pr edit --add-label "$1"
-  else
-    gh issue edit --add-label "$1"
-  fi
+  gh pr edit --add-label "$1"
 }
 
 # Search for a label
@@ -46,14 +42,9 @@ check_label() {
   fi
 }
 
-# Get changed files from a pull request or issue
+# Get changed files from the pull request
 get_changed_files() {
-  changed_files=""
-  if [ $git_event = "pull_request" ]; then
-    changed_files=$(git diff --name-only origin/"$head" origin/"$base")
-  else
-    changed_files=$(git diff --name-only origin/"$head")
-  fi
+  changed_files=$(git diff --name-only origin/"$head" origin/"$base")
   echo $changed_files
 }
 
