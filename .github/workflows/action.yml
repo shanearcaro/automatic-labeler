@@ -29,3 +29,4 @@ jobs:
             yaml: "config"
             json: "config"
             md: "documentation"
+            sh: "scripting"
