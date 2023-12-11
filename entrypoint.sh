@@ -9,7 +9,7 @@ languages=$2
 printenv
 
 # Define aliases
-head=$GITHUB_HEAD_REF
+head=$GITHUB_SHA
 base=$GITHUB_BASE_REF
 git_event=$GITHUB_EVENT_NAME
 
