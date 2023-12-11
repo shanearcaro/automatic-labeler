@@ -45,16 +45,15 @@ check_label() {
   else
     echo "Label exists: $search"
   fi
-
 }
 
 # Get changed files from a pull request or issue
 get_changed_files() {
   changed_files=""
   if [ $git_event = "pull_request" ]; then
-    changed_files=$(git diff --name-only "$head" "$base")
+    changed_files=$(git diff --name-only origin/"$head" origin/"$base")
   else
-    changed_files=$(git diff --name-only "$head")
+    changed_files=$(git diff --name-only origin/"$head")
   fi
   echo $changed_files
 }
@@ -90,8 +89,6 @@ add_language_labels() {
     fi
   done
 }
-
-
 
 # Need to checkout branch before using git commands
 # gh pr checkout "$head"
