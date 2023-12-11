@@ -19,13 +19,15 @@ jobs:
         uses: ./
         with:
           paths: |
-            backend: "API"
+            Dockerfile: "docker"
+            .github/workflows: "workflows"
           languages: |
             ts: "typescript"
-            js: "typescript"
+            js: "javascript"
             tsx: "react"
             jsx: "react"
             yml: "config"
             yaml: "config"
             json: "config"
             md: "documentation"
+            sh: "scripting"
