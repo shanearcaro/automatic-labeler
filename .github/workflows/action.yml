@@ -29,4 +29,3 @@ jobs:
             yaml: "config"
             json: "config"
             md: "documentation"
-          event: ${{ github.event_name }}

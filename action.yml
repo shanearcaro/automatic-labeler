@@ -15,4 +15,3 @@ runs:
   args:
     - ${{ inputs.paths }}
     - ${{ inputs.languages }}
-    - ${{ inputs.event }}
