@@ -11,7 +11,7 @@ printenv
 # Define aliases
 head=$GITHUB_HEAD_REF
 base=$GITHUB_BASE_REF
-git_event=$INPUT_EVENT
+git_event=$GITHUB_EVENT_NAME
 
 # Add a label to a pull request or issue
 add_label() {
