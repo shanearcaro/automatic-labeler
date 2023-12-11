@@ -6,7 +6,6 @@ git config --global --add safe.directory $PWD
 # Read in path and languages to traverse
 paths=$1
 languages=$2
-printenv
 
 # Define aliases
 head=$GITHUB_HEAD_REF
