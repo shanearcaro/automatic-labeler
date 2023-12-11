@@ -9,7 +9,7 @@ languages=$2
 printenv
 
 # Define aliases
-head=$GITHUB_SHA
+head=$GITHUB_HEAD_REF
 base=$GITHUB_BASE_REF
 git_event=$GITHUB_EVENT_NAME
 
@@ -94,7 +94,8 @@ add_language_labels() {
 
 
 # Need to checkout branch before using git commands
-gh pr checkout "$head"
+# gh pr checkout "$head"
 
+echo "Running comparison on "$head" and "$base""
 add_language_labels
 
