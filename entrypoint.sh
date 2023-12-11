@@ -12,6 +12,13 @@ head=$GITHUB_HEAD_REF
 base=$GITHUB_BASE_REF
 git_event=$GITHUB_EVENT_NAME
 
+if [ -z $DEV_MODE ]; then
+  label_prefix=  "origin/"
+else
+  label_prefix=  ""
+fi
+
+
 # Add a label to a pull request or issue
 add_label() {
   gh pr edit --add-label "$1"
@@ -44,7 +51,7 @@ check_label() {
 
 # Get changed files from the pull request
 get_changed_files() {
-  changed_files=$(git diff --name-only origin/"$head" origin/"$base")
+  changed_files=$(git diff --name-only $label_prefix"$head" $label_prefix"$base")
   echo $changed_files
 }
 
@@ -80,9 +87,15 @@ add_language_labels() {
   done
 }
 
+add_paths_labels() {
+  changed_files=$(get_changed_files)
+  echo "Changed files: $changed_files"
+}
+
 # Need to checkout branch before using git commands
 git checkout "$head"
 
 echo "Running comparison on "$head" and "$base""
-add_language_labels
+# add_language_labels
+add_paths_labels
 
