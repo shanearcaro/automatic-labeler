@@ -12,10 +12,11 @@ head=$GITHUB_HEAD_REF
 base=$GITHUB_BASE_REF
 git_event=$GITHUB_EVENT_NAME
 
+label_prefix=""
 if [ -z $DEV_MODE ]; then
-  label_prefix=  "origin/"
+  label_prefix="origin/"
 else
-  label_prefix=  ""
+  label_prefix=""
 fi
 
 
