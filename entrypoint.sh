@@ -91,7 +91,7 @@ add_language_labels() {
 }
 
 # Need to checkout branch before using git commands
-gh pr checkout origin/"$head"
+git checkout origin/"$head"
 
 echo "Running comparison on "$head" and "$base""
 add_language_labels
