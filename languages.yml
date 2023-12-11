@@ -1,0 +1,8 @@
+ts: "typescript"
+js: "typescript"
+tsx: "react"
+jsx: "react"
+yml: "config"
+yaml: "config"
+json: "config"
+md: "documentation"

@@ -1,0 +1,17 @@
+name: "Automatic Labeler"
+description: 'Add automatic labels'
+inputs:
+  paths:
+    description: 'Apply labels to events with mentions of these paths'
+    required: false
+    default: ''
+  languages:
+    description: 'Apply labels to events with mentions of these languages'
+    required: false
+    default: ''
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.paths }}
+    - ${{ inputs.languages }}
