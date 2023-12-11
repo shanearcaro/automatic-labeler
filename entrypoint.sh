@@ -96,6 +96,6 @@ add_paths_labels() {
 git checkout "$head"
 
 echo "Running comparison on "$head" and "$base""
-# add_language_labels
+add_language_labels
 add_paths_labels
 
