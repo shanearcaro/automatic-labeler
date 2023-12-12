@@ -23,6 +23,7 @@ fi
 # Add a label to a pull request
 add_label() {
   gh pr edit --add-label "$1"
+  echo "Adding label $1"
 }
 
 # Search for a label
