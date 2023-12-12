@@ -55,7 +55,7 @@ jobs:
         with:
           fetch-depth: 0 // Fetch the entire history of the repository
       - name: Assign labels
-        uses: shanearcaro/organize-pr
+        uses: actions/automatic-labeler
         with:
           paths: |
             .: "root"
@@ -73,5 +73,9 @@ jobs:
             sh: "scripting"
           assign-self: 'true'
 ```
+
+## Labels
+
+Labels that do not exist will be created with a random color.
 
 
