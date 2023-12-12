@@ -1,4 +1,3 @@
 .: "root"
-Dockerfile: "docker"
 .github/workflows: "workflows"
 backend: "backend"

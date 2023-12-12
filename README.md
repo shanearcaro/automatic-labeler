@@ -70,7 +70,6 @@ jobs:
         with:
           paths: |
             .: "root"
-            Dockerfile: "docker"
             .github/workflows: "workflows"
           languages: |
             ts: "typescript"
@@ -82,6 +81,7 @@ jobs:
             json: "config"
             md: "documentation"
             sh: "scripting"
+            Dockerfile: "docker"
           assign-owner: 'true'
 ```
 

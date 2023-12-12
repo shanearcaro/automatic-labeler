@@ -21,7 +21,6 @@ jobs:
         with:
           paths: |
             .: "root"
-            Dockerfile: "docker"
             .github/workflows: "workflows"
             backend: "backend"
           languages: |
@@ -34,4 +33,5 @@ jobs:
             json: "config"
             md: "documentation"
             sh: "scripting"
+            Dockerfile: "docker"
           assign-owner: 'true'
