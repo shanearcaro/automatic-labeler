@@ -9,7 +9,7 @@ inputs:
     description: 'Apply labels to events with mentions of these languages'
     required: false
     default: ''
-  assign-self:
+  assign-owner:
     description: 'Assign whoever triggers the pr to it'
     required: false
     default: ''
@@ -19,4 +19,4 @@ runs:
   args:
     - ${{ inputs.paths }}
     - ${{ inputs.languages }}
-    - ${{ inputs.assign-self }}
+    - ${{ inputs.assign-owner }}
