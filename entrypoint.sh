@@ -28,7 +28,7 @@ add_label() {
 }
 
 assign_self_owner() {
-  gh pr edit --add-assignee @me
+  gh pr edit --add-assignee $GITHUB_ACTOR
   echo "Assigning self as assignee"
 }
 
