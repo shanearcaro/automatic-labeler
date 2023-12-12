@@ -13,6 +13,10 @@ inputs:
     description: 'Assign whoever triggers the pr to it'
     required: false
     default: ''
+  token:
+    description: 'Token to use for authentication'
+    required: true
+    default: ''
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -20,3 +24,4 @@ runs:
     - ${{ inputs.paths }}
     - ${{ inputs.languages }}
     - ${{ inputs.assign-self }}
+    - ${{ inputs.token }}
