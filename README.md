@@ -74,4 +74,8 @@ jobs:
           assign-self: 'true'
 ```
 
+## Labels
+
+Labels that do not exist will be created with a random color.
+
 

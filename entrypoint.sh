@@ -43,7 +43,7 @@ search_label() {
 create_label() {
   # Remove trailing whitespace
   label=$(echo $1 | xargs)
-  gh label create "$label" -d "Label automatically created by shanearcaro/organize-pr"
+  gh label create "$label" -d "Label automatically created by shanearcaro/automatic-labeler"
 }
 
 # Check if a label exists, if not create it
