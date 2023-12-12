@@ -55,7 +55,7 @@ jobs:
         with:
           fetch-depth: 0 // Fetch the entire history of the repository
       - name: Assign labels
-        uses: actions/automatic-labeler
+        uses: shanearcaro/automatic-labeler@v1.2.3
         with:
           paths: |
             .: "root"
