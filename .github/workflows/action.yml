@@ -19,6 +19,7 @@ jobs:
         uses: ./
         with:
           paths: |
+            .: "root"
             Dockerfile: "docker"
             .github/workflows: "workflows"
           languages: |
@@ -31,3 +32,4 @@ jobs:
             json: "config"
             md: "documentation"
             sh: "scripting"
+          assign-self: 'true'
