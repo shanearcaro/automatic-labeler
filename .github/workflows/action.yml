@@ -16,7 +16,7 @@ jobs:
           fetch-depth: 0
       - name: Detect changes
         id: detect
-        uses: ./
+        uses: shanearcaro/automatic-labeler@v1.2.5
         with:
           paths: |
             .: "root"
@@ -33,4 +33,4 @@ jobs:
             md: "documentation"
             sh: "scripting"
           assign-self: 'true'
-          github-token: ${{ secrets.PAT }}
+          github-token: ${{ github.token }}
