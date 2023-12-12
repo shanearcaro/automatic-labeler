@@ -22,6 +22,7 @@ with:
 This will apply the labels ```root```, ```Dockerfile```, and ```workflow``` when the pull request includes any changed files in the root of the project, a file named Dockerfile changed in the root directory, or when any file within the ```.github/workflows``` directory is changed.
 
 Paths should start with a ```.```. For example ```src``` can be either ```src``` or ```.src``` but not ```./src```. Another example would be ```.frontend/src/components/```.
+Both ```paths``` and ```languages``` need to be valid yml.
 
 languages: Apply a label based on a file extension ```[optional]```
 ```

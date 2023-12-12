@@ -99,7 +99,7 @@ add_language_labels() {
   extensions=$(get_changed_file_ext)
   for ext in $extensions; do
     # Check if file extension is in languages
-    match=$(echo "$languages" | grep "$ext" | awk '{print $2}' | xargs)
+    match=$(echo "$languages" | grep -w "$ext" | awk '{print $2}' | xargs)
     if [ -n "$match" ]; then
       # Get label
       echo "Match: $match"
@@ -116,8 +116,8 @@ add_paths_labels() {
     match=$(echo "$paths" | grep -w "$path:" | awk '{print $2}' | xargs)
     if [ -n "$match" ]; then
       echo "Match: $match"
-      check_label "$match"
-      add_label "$match"
+      # check_label "$match"
+      # add_label "$match"
     fi
   done
 }
