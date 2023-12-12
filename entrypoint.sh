@@ -8,6 +8,8 @@ paths=$1
 languages=$2
 assign_owner=$3
 
+echo "Paths: $paths"
+
 # Define aliases
 head=$GITHUB_HEAD_REF
 base=$GITHUB_BASE_REF
@@ -112,13 +114,19 @@ add_language_labels() {
 add_paths_labels() {
   changed_paths=$(get_changed_file_paths)
   for path in $changed_paths; do
-    # Check if file path is in paths (match using : as suffix to avoid matching subdirectories)
-    match=$(echo "$paths" | grep -w "$path:" | awk '{print $2}' | xargs)
-    if [ -n "$match" ]; then
-      echo "Match: $match"
-      # check_label "$match"
-      # add_label "$match"
-    fi
+    echo "Path: $path"
+    echo "Dir: $(dirname $path)"
+    sub_dir=$(echo $path | tr "/" " ")
+    echo "Sub dir: $sub_dir"
+    match=$(echo "$paths" | grep "$path")
+    echo "Match: $match\n"
+
+    # echo "Submatch $submatch"
+    # if [ -n "$match" ]; then
+    #   echo "Match: $match"
+    #   # check_label "$match"
+    #   # add_label "$match"
+    # fi
   done
 }
 
@@ -130,7 +138,7 @@ echo "Changed files: $(get_changed_files)"
 echo "Changed paths: $(get_changed_file_paths)"
 echo "Changed extensions: $(get_changed_file_ext)"
 
-add_language_labels
+# add_language_labels
 add_paths_labels
 
 if [ -n "$assign_owner" ]; then
