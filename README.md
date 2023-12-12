@@ -36,10 +36,14 @@ languages: |
 ```
 This will apply the labels if any file changes are detected with the extensions ```.ts```, ```.js```, ```.tsx```, or ```.jsx```, etc.
 
-assign_self: Assign the creator of the pull request as an assignee. ```[optional]```
+assign_owner: Assign the creator of the pull request as an assignee. ```[optional]```
 ```
-assign-self: 'true' 
+assign-owner: 'true' 
 ```
+
+## Labels
+
+Labels that do not exist will be created with a random color.
 
 ## A full example using this action:
 ```
@@ -61,7 +65,7 @@ jobs:
         with:
           fetch-depth: 0 // Fetch the entire history of the repository
       - name: Assign labels
-        uses: shanearcaro/automatic-labeler@v1.2.5
+        uses: shanearcaro/automatic-labeler@v2
         with:
           paths: |
             .: "root"
@@ -77,12 +81,7 @@ jobs:
             json: "config"
             md: "documentation"
             sh: "scripting"
-          assign-self: 'true'
-        github-token: ${{ github.token }}
+          assign-owner: 'true'
 ```
-
-## Labels
-
-Labels that do not exist will be created with a random color.
 
 
