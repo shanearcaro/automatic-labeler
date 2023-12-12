@@ -23,6 +23,7 @@ jobs:
             .: "root"
             Dockerfile: "docker"
             .github/workflows: "workflows"
+            backend: "backend"
           languages: |
             ts: "typescript"
             js: "javascript"
