@@ -6,6 +6,7 @@ git config --global --add safe.directory $PWD
 # Read in path and languages to traverse
 paths=$1
 languages=$2
+assign_owner=$3
 
 # Define aliases
 head=$GITHUB_HEAD_REF
@@ -24,6 +25,11 @@ fi
 add_label() {
   gh pr edit --add-label "$1"
   echo "Adding label $1"
+}
+
+assign_self_owner() {
+  gh pr edit --assignee @me
+  echo "Assigning self as assignee"
 }
 
 # Search for a label
@@ -126,4 +132,8 @@ echo "Changed extensions: $(get_changed_file_ext)"
 
 add_language_labels
 add_paths_labels
+
+if [ -n "$assign_owner" ]; then
+  assign_self_owner
+fi
 
