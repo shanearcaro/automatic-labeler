@@ -5,6 +5,7 @@ on:
 permissions:
   contents: read
   pull-requests: write
+  repository-projects: read
 jobs:
   label:
     runs-on: ubuntu-latest
@@ -33,4 +34,3 @@ jobs:
             md: "documentation"
             sh: "scripting"
           assign-self: 'true'
-          token: ${{ secrets.GITHUB_TOKEN }}

@@ -5,10 +5,10 @@ Automatically add labels to your pull requests based on file paths and extension
 
 ### Action Options
 
-token: Token used for authentication ```[required]```
+github-token: Token used for authentication ```[required]```
 ```
 with:
-  token: ${{ secrets.GITHUB_TOKEN }}
+  github-token: ${{ github.token }}
 ```
 paths: Apply a label based on directory changes ```[optional]```
 ```
@@ -47,20 +47,21 @@ name: "Automatic PR Labeler"
 on:
   pull_request:
     types: [opened]
-permissions: // Apply repository read and pull-request write permissions
-  contents: read
-  pull-requests: write
+permissions: // Required permissions for action to work properly
+  contents: read // Read content from repository
+  pull-requests: write // Read and edit pull requests
+  repository-projects: read // Read GITHUB_TOKEN
 jobs:
   label:
     runs-on: ubuntu-latest
     env:
-      GH_TOKEN: ${{ github.token }} // Needs github token
+      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0 // Fetch the entire history of the repository
       - name: Assign labels
-        uses: shanearcaro/automatic-labeler@v1.2.4
+        uses: shanearcaro/automatic-labeler@v1.2.5
         with:
           paths: |
             .: "root"
@@ -77,7 +78,7 @@ jobs:
             md: "documentation"
             sh: "scripting"
           assign-self: 'true'
-          token: ${{ secrets.GITHUB_TOKEN }} // Need to validate
+        github-token: ${{ github.token }}
 ```
 
 ## Labels

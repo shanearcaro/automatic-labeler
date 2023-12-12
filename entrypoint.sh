@@ -7,10 +7,6 @@ git config --global --add safe.directory $PWD
 paths=$1
 languages=$2
 assign_owner=$3
-token=$4
-
-# Authentication action with token
-gh auth login --with-token < $token
 
 # Define aliases
 head=$GITHUB_HEAD_REF
