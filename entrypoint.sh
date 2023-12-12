@@ -90,8 +90,6 @@ get_changed_file_paths() {
 # Add language labels to an event
 add_language_labels() {
   extensions=$(get_changed_file_ext)
-  echo "Extensions: $extensions"
-
   for ext in $extensions; do
     # Check if file extension is in languages
     match=$(echo "$languages" | grep "$ext" | awk '{print $2}' | xargs)
@@ -106,16 +104,13 @@ add_language_labels() {
 
 add_paths_labels() {
   changed_paths=$(get_changed_file_paths)
-  echo "Changed paths: $changed_paths"
-
   for path in $changed_paths; do
+    # Check if file path is in paths (match using : as suffix to avoid matching subdirectories)
     match=$(echo "$paths" | grep -w "$path:" | awk '{print $2}' | xargs)
     if [ -n "$match" ]; then
       echo "Match: $match"
       check_label "$match"
       add_label "$match"
-    else
-      echo "No match for path: $path"
     fi
   done
 }
