@@ -5,6 +5,7 @@ on:
 permissions:
   contents: read
   pull-requests: write
+  repository-projects: read
 jobs:
   label:
     runs-on: ubuntu-latest
@@ -16,7 +17,7 @@ jobs:
           fetch-depth: 0
       - name: Detect changes
         id: detect
-        uses: shanearcaro/automatic-labeler@v1.2.5
+        uses: ./
         with:
           paths: |
             .: "root"
@@ -33,4 +34,3 @@ jobs:
             md: "documentation"
             sh: "scripting"
           assign-self: 'true'
-          github-token: ${{ github.token }}
