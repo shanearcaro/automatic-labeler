@@ -28,7 +28,7 @@ add_label() {
 }
 
 assign_self_owner() {
-  gh pr edit --assignee @me
+  gh pr edit --add-assignee @me
   echo "Assigning self as assignee"
 }
 
