@@ -33,4 +33,4 @@ jobs:
             md: "documentation"
             sh: "scripting"
           assign-self: 'true'
-          token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.PAT }}

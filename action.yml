@@ -13,8 +13,8 @@ inputs:
     description: 'Assign whoever triggers the pr to it'
     required: false
     default: ''
-  token:
-    description: 'Token to use for authentication'
+  github-token:
+    description: 'Personal Access Token used for authentication'
     required: true
     default: ''
 runs:
@@ -24,4 +24,4 @@ runs:
     - ${{ inputs.paths }}
     - ${{ inputs.languages }}
     - ${{ inputs.assign-self }}
-    - ${{ inputs.token }}
+    - ${{ inputs.github-token }}

@@ -53,14 +53,12 @@ permissions: // Apply repository read and pull-request write permissions
 jobs:
   label:
     runs-on: ubuntu-latest
-    env:
-      GH_TOKEN: ${{ github.token }} // Needs github token
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0 // Fetch the entire history of the repository
       - name: Assign labels
-        uses: shanearcaro/automatic-labeler@v1.2.4
+        uses: shanearcaro/automatic-labeler@v1.2.5
         with:
           paths: |
             .: "root"
@@ -77,7 +75,7 @@ jobs:
             md: "documentation"
             sh: "scripting"
           assign-self: 'true'
-          token: ${{ secrets.GITHUB_TOKEN }} // Need to validate
+        github-token: ${{ secrets.PAT }}
 ```
 
 ## Labels
