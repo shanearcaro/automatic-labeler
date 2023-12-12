@@ -1,10 +1,15 @@
 
 ## Automatic Pull request Labeler
 
-Automatically add labels to your pull requests.
+Automatically add labels to your pull requests based on file paths and extensions.
 
 ### Action Options
 
+token: Token used for authentication ```[required]```
+```
+with:
+  token: ${{ secrets.GITHUB_TOKEN }}
+```
 paths: Apply a label based on directory changes ```[optional]```
 ```
 with:
@@ -55,7 +60,7 @@ jobs:
         with:
           fetch-depth: 0 // Fetch the entire history of the repository
       - name: Assign labels
-        uses: shanearcaro/automatic-labeler@v1.2.3
+        uses: shanearcaro/automatic-labeler@v1.2.4
         with:
           paths: |
             .: "root"
@@ -72,6 +77,7 @@ jobs:
             md: "documentation"
             sh: "scripting"
           assign-self: 'true'
+          token: ${{ secrets.GITHUB_TOKEN }} // Need to validate
 ```
 
 ## Labels
