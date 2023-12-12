@@ -12,6 +12,7 @@ head=$GITHUB_HEAD_REF
 base=$GITHUB_BASE_REF
 git_event=$GITHUB_EVENT_NAME
 
+# Define label prefix for local development
 label_prefix=""
 if [ -z $DEV_MODE ]; then
   label_prefix="origin/"
@@ -19,8 +20,7 @@ else
   label_prefix=""
 fi
 
-
-# Add a label to a pull request or issue
+# Add a label to a pull request
 add_label() {
   gh pr edit --add-label "$1"
 }
@@ -32,6 +32,7 @@ search_label() {
   echo $search
 }
 
+# Create a label
 create_label() {
   # Remove trailing whitespace
   label=$(echo $1 | xargs)
@@ -71,6 +72,21 @@ get_changed_file_ext() {
   echo $extensions
 }
 
+# Get unique file paths from changed files
+get_changed_file_paths() {
+  changed_files=$(get_changed_files)
+  changed_paths=""
+  for file in $changed_files; do
+    # Extract file paths
+    file_path=$(dirname "$file")
+    changed_paths="$changed_paths $file_path"
+  done
+  
+  # Remove duplicate paths, need to convert spaces to new lines then back again
+  changed_paths=$(echo $changed_paths | tr ' ' '\n' | sort -u | tr '\n' ' ')
+  echo $changed_paths
+}
+
 # Add language labels to an event
 add_language_labels() {
   extensions=$(get_changed_file_ext)
@@ -83,20 +99,35 @@ add_language_labels() {
       # Get label
       echo "Match: $match"
       check_label "$match"
-      add_label $match
+      add_label "$match"
     fi
   done
 }
 
 add_paths_labels() {
-  changed_files=$(get_changed_files)
-  echo "Changed files: $changed_files"
+  changed_paths=$(get_changed_file_paths)
+  echo "Changed paths: $changed_paths"
+
+  for path in $changed_paths; do
+    match=$(echo "$paths" | grep -w "$path:" | awk '{print $2}' | xargs)
+    if [ -n "$match" ]; then
+      echo "Match: $match"
+      check_label "$match"
+      add_label "$match"
+    else
+      echo "No match for path: $path"
+    fi
+  done
 }
 
 # Need to checkout branch before using git commands
 git checkout "$head"
 
 echo "Running comparison on "$head" and "$base""
+echo "Changed files: $(get_changed_files)"
+echo "Changed paths: $(get_changed_file_paths)"
+echo "Changed extensions: $(get_changed_file_ext)"
+
 add_language_labels
 add_paths_labels
 
