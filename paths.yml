@@ -1,3 +1,2 @@
-.: "root"
-.github/workflows: "workflows"
-backend: "backend"
+.github/: "workflows"
+backend/src/: "backend"

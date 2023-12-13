@@ -25,8 +25,9 @@ fi
 
 # Add a label to a pull request
 add_label() {
-  gh pr edit --add-label "$1"
-  echo "Adding label $1"
+  label=$(echo $1 | xargs)
+  gh pr edit --add-label $label
+  echo "Adding label [$label]"
 }
 
 assign_self_owner() {
@@ -60,6 +61,16 @@ check_label() {
   fi
 }
 
+format_path() {
+  # Format paths with trailing slash for substring matching
+  path=$(echo $1 | xargs)
+  # Add trailing slash if not present
+  if [ -z $(echo $path | grep -E "/$") ]; then
+    path="$path/"
+  fi
+  echo $path
+}
+
 # Get changed files from the pull request
 get_changed_files() {
   changed_files=$(git diff --name-only $label_prefix"$head" $label_prefix"$base")
@@ -87,7 +98,7 @@ get_changed_file_paths() {
   changed_paths=""
   for file in $changed_files; do
     # Extract file paths
-    file_path=$(dirname "$file")
+    file_path="$(format_path $(dirname "$file"))"
     changed_paths="$changed_paths $file_path"
   done
   
@@ -113,20 +124,21 @@ add_language_labels() {
 
 add_paths_labels() {
   changed_paths=$(get_changed_file_paths)
-  for path in $changed_paths; do
-    echo "Path: $path"
-    echo "Dir: $(dirname $path)"
-    sub_dir=$(echo $path | tr "/" " ")
-    echo "Sub dir: $sub_dir"
-    match=$(echo "$paths" | grep "$path")
-    echo "Match: $match\n"
+  # Remove trailing colon from yml extracted keys
+  path_keys=$(echo "$paths" | awk '{print $1}' | sed 's/://' | xargs)
+  for path in $path_keys; do
+    # Search for path in changed paths
+    path=$(format_path "$path")
+    match=$(echo "$changed_paths" | grep -o "$path")
+    echo "Match: $match"
 
-    # echo "Submatch $submatch"
-    # if [ -n "$match" ]; then
-    #   echo "Match: $match"
-    #   # check_label "$match"
-    #   # add_label "$match"
-    # fi
+    # If path is in changed paths, add label
+    if [ -n "$match" ]; then
+      label=$(echo "$paths" | grep "$path" | awk '{print $2}' | xargs)
+      echo "Label: $label"
+      check_label "$label"
+      add_label "$label"
+    fi
   done
 }
 
@@ -138,7 +150,7 @@ echo "Changed files: $(get_changed_files)"
 echo "Changed paths: $(get_changed_file_paths)"
 echo "Changed extensions: $(get_changed_file_ext)"
 
-# add_language_labels
+add_language_labels
 add_paths_labels
 
 if [ -n "$assign_owner" ]; then
