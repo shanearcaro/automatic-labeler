@@ -8,6 +8,8 @@ paths=$1
 languages=$2
 assign_owner=$3
 
+echo "Paths: $paths"
+
 # Define aliases
 head=$GITHUB_HEAD_REF
 base=$GITHUB_BASE_REF
@@ -23,8 +25,9 @@ fi
 
 # Add a label to a pull request
 add_label() {
-  gh pr edit --add-label "$1"
-  echo "Adding label $1"
+  label=$(echo $1 | xargs)
+  gh pr edit --add-label $label
+  echo "Adding label [$label]"
 }
 
 assign_self_owner() {
@@ -58,6 +61,16 @@ check_label() {
   fi
 }
 
+format_path() {
+  # Format paths with trailing slash for substring matching
+  path=$(echo $1 | xargs)
+  # Add trailing slash if not present
+  if [ -z $(echo $path | grep -E "/$") ]; then
+    path="$path/"
+  fi
+  echo $path
+}
+
 # Get changed files from the pull request
 get_changed_files() {
   changed_files=$(git diff --name-only $label_prefix"$head" $label_prefix"$base")
@@ -85,7 +98,7 @@ get_changed_file_paths() {
   changed_paths=""
   for file in $changed_files; do
     # Extract file paths
-    file_path=$(dirname "$file")
+    file_path="$(format_path $(dirname "$file"))"
     changed_paths="$changed_paths $file_path"
   done
   
@@ -99,7 +112,7 @@ add_language_labels() {
   extensions=$(get_changed_file_ext)
   for ext in $extensions; do
     # Check if file extension is in languages
-    match=$(echo "$languages" | grep "$ext" | awk '{print $2}' | xargs)
+    match=$(echo "$languages" | grep -w "$ext" | awk '{print $2}' | xargs)
     if [ -n "$match" ]; then
       # Get label
       echo "Match: $match"
@@ -111,13 +124,20 @@ add_language_labels() {
 
 add_paths_labels() {
   changed_paths=$(get_changed_file_paths)
-  for path in $changed_paths; do
-    # Check if file path is in paths (match using : as suffix to avoid matching subdirectories)
-    match=$(echo "$paths" | grep -w "$path:" | awk '{print $2}' | xargs)
+  # Remove trailing colon from yml extracted keys
+  path_keys=$(echo "$paths" | awk '{print $1}' | sed 's/://' | xargs)
+  for path in $path_keys; do
+    # Search for path in changed paths
+    path=$(format_path "$path")
+    match=$(echo "$changed_paths" | grep -o "$path")
+    echo "Match: $match"
+
+    # If path is in changed paths, add label
     if [ -n "$match" ]; then
-      echo "Match: $match"
-      check_label "$match"
-      add_label "$match"
+      label=$(echo "$paths" | grep "$path" | awk '{print $2}' | xargs)
+      echo "Label: $label"
+      check_label "$label"
+      add_label "$label"
     fi
   done
 }

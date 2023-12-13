@@ -10,33 +10,42 @@ github-token: Token used for authentication ```[required]```
 with:
   github-token: ${{ github.token }}
 ```
-paths: Apply a label based on directory changes ```[optional]```
+#### paths: 
+
+Apply a label based on directory changes ```[optional]```
+
 ```
 with:
   paths: |
-  .: "root"
-  Dockerfile: "docker"
-  .github/workflows: "workflows"
+    .github/: "workflows"
+    backend/src/: "backend"
 ```
 
-This will apply the labels ```root```, ```Dockerfile```, and ```workflow``` when the pull request includes any changed files in the root of the project, a file named Dockerfile changed in the root directory, or when any file within the ```.github/workflows``` directory is changed.
+This will apply the labels ```workflows``` and ```backend``` when the pull request includes any changed files in either directories.
 
-Paths should start with a ```.```. For example ```src``` can be either ```src``` or ```.src``` but not ```./src```. Another example would be ```.frontend/src/components/```.
+#### languages: 
 
-languages: Apply a label based on a file extension ```[optional]```
+Apply a label based on a file extension ```[optional]```
+
 ```
 languages: |
   ts: "typescript"
-  js: "javascript"
+  js: "typescript"
   tsx: "react"
   jsx: "react"
   yml: "config"
   yaml: "config"
   json: "config"
+  md: "documentation"
+  sh: "scripting"
+  Dockerfile: "docker"
 ```
 This will apply the labels if any file changes are detected with the extensions ```.ts```, ```.js```, ```.tsx```, or ```.jsx```, etc.
 
-assign_owner: Assign the creator of the pull request as an assignee. ```[optional]```
+#### assign_owner: 
+
+Assign the creator of the pull request as an assignee. ```[optional]```
+
 ```
 assign-owner: 'true' 
 ```
@@ -65,15 +74,14 @@ jobs:
         with:
           fetch-depth: 0 // Fetch the entire history of the repository
       - name: Assign labels
-        uses: shanearcaro/automatic-labeler@v2
+        uses: shanearcaro/automatic-labeler@v2.1.0
         with:
           paths: |
-            .: "root"
-            Dockerfile: "docker"
-            .github/workflows: "workflows"
+            .github/: "workflows"
+            backend/src/: "backend"
           languages: |
             ts: "typescript"
-            js: "javascript"
+            js: "typescript"
             tsx: "react"
             jsx: "react"
             yml: "config"
@@ -81,6 +89,7 @@ jobs:
             json: "config"
             md: "documentation"
             sh: "scripting"
+            Dockerfile: "docker"
           assign-owner: 'true'
 ```
 

@@ -1,3 +1,2 @@
-.: "root"
-Dockerfile: "docker"
-.github/workflows: "workflows"
+.github/: "workflows"
+backend/src/: "backend"

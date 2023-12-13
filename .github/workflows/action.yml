@@ -20,12 +20,11 @@ jobs:
         uses: ./
         with:
           paths: |
-            .: "root"
-            Dockerfile: "docker"
-            .github/workflows: "workflows"
+            .github/: "workflows"
+            backend/src/: "backend"
           languages: |
             ts: "typescript"
-            js: "javascript"
+            js: "typescript"
             tsx: "react"
             jsx: "react"
             yml: "config"
@@ -33,4 +32,5 @@ jobs:
             json: "config"
             md: "documentation"
             sh: "scripting"
+            Dockerfile: "docker"
           assign-owner: 'true'
