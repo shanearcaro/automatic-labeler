@@ -20,12 +20,11 @@ jobs:
         uses: ./
         with:
           paths: |
-            .: "root"
-            .github/workflows: "workflows"
-            backend: "backend"
+            .github/: "workflows"
+            backend/src/: "backend"
           languages: |
             ts: "typescript"
-            js: "javascript"
+            js: "typescript"
             tsx: "react"
             jsx: "react"
             yml: "config"
